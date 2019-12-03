@@ -79,17 +79,30 @@ server.delete('/api/users/:id', (req, res) => {
     })
 })
 
-// When the client makes a DELETE request to /api/users/:id:
+// Edit (put) from /api/users/:id
+server.put('/api/users/:id', (req, res) => {
+    const id = req.params.id;
+    const user = req.body; 
+    if (user.name && user.bio) {
+        db.update(id, user)
+        .then( id => {
+            if (id) {
+                res.status(200).json({...id, ...user})
+            } else {
+                res.status(404).json({ message: "The user with the specified ID does not exist"})
+            }
+        })
+        .catch( error => {
+            console.log(error)
+            res.status(500).json({ error: "The user information could not be modified."})
+        })
+    } else {
+        res.status(400).json({errorMessage: "Please provide name and bio for the user."})
+    }
+    
+})
 
-// If the user with the specified id is not found:
 
-// return HTTP status code 404 (Not Found).
-// return the following JSON object: { message: "The user with the specified ID does not exist." }.
-// If there's an error in removing the user from the database:
-
-// cancel the request.
-// respond with HTTP status code 500.
-// return the following JSON object: { error: "The user could not be removed" }.
 
 
 const port = 5000;
