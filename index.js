@@ -10,14 +10,7 @@ const server = express();
 server.use(express.json());
 
 server.get('/', (req, res) => {
-    const message = process.env.MSG || ":)"
-    .then(e => {
-        res.status(200).json({...message, ...e})
-    })
-    .catch(error => {
-        console.log(error)
-        res.status(500).json({error: "error"})
-    })
+    res.send({api: 'Hi, welcome to my deployed APP'})
 })
 
 // post to /api/users
@@ -114,8 +107,7 @@ server.put('/api/users/:id', (req, res) => {
 
 
 
-const port = process.env.PORT || 5000;
-
+const port = process.env.PORT;
 
 
 server.listen(port, () => 
