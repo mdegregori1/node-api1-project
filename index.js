@@ -10,7 +10,14 @@ const server = express();
 server.use(express.json());
 
 server.get('/', (req, res) => {
-    res.send({api: 'If this prints out, API is running'})
+    const message = process.env.MSG || ":)"
+    .then(e => {
+        res.status(200).json({...message, ...e})
+    })
+    .catch(error => {
+        console.log(error)
+        res.status(500).json({error: "error"})
+    })
 })
 
 // post to /api/users
@@ -107,7 +114,8 @@ server.put('/api/users/:id', (req, res) => {
 
 
 
-const port = process.env.PORT;
+const port = process.env.PORT || 4000;
+
 
 
 server.listen(port, () => 
