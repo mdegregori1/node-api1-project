@@ -1,4 +1,6 @@
 // implement your API here
+require('dotenv').config();
+
 const express = require('express');
 
 const db = require('./data/db.js');
@@ -105,7 +107,8 @@ server.put('/api/users/:id', (req, res) => {
 
 
 
-const port = 5000;
+const port = process.env.PORT;
+
 server.listen(port, () => 
 console.log(`\n ** API running on port: ${port} **\n`)
 );
