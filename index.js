@@ -107,8 +107,8 @@ server.put('/api/users/:id', (req, res) => {
 
 
 
-// const port = process.env.PORT;
-const port = process.env.MSG;
+const port = process.env.PORT;
+
 
 server.listen(port, () => 
 console.log(`\n ** API running on port: ${port} **\n`)
